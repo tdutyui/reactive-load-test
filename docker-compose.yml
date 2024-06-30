@@ -20,9 +20,9 @@ services:
     depends_on:
       - pgdb
     environment:
-      SPRING_DATASOURCE_URL: r2dbc:postgresql://reactive-load:5432/reactive-load
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_R2DBC_URL: r2dbc:postgresql://reactive-load:5432/reactive-load
+      SPRING_R2DBC_USERNAME: postgres
+      SPRING_R2DBC_PASSWORD: postgres
 
 volumes:
   reactive-db:
