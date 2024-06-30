@@ -1,0 +1,28 @@
+services:
+  pgdb:
+    container_name: reactive-postgres
+    image: library/postgres:16-alpine
+    hostname: reactive-load
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reactive-load
+    ports:
+      - "5432:5432"
+    volumes:
+      - reactive-db:/var/lib/postgresql/data
+
+  load-test:
+    build: .
+    container_name: reactive-load-test
+    ports:
+      - "8084:8084"
+    depends_on:
+      - pgdb
+    environment:
+      SPRING_DATASOURCE_URL: r2dbc:postgresql://reactive-load:5432/reactive-load
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+
+volumes:
+  reactive-db:
